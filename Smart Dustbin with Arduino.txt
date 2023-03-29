@@ -1,0 +1,63 @@
+//team micro
+#include<Servo.h>
+Servo myservo;
+int trigpin1= A0;
+int echopin1= A1;
+int trigpin2= 10;
+int echopin2= 8;
+int buzzer =11;
+float distance1;
+float duration1;
+float distance2;
+float duration2;
+void setup()
+{
+  pinMode (trigpin1, OUTPUT);
+  pinMode (echopin1, INPUT);
+  pinMode (buzzer,OUTPUT);
+  pinMode (trigpin2, OUTPUT);
+  pinMode (echopin2, INPUT);
+  myservo.attach(9);
+}
+
+void loop()
+{
+  digitalWrite(trigpin1, LOW);
+  delay(2);
+  digitalWrite(trigpin1, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(trigpin1, LOW);
+  duration1=pulseIn(echopin1,HIGH);
+  distance1=(duration1*0.034)/2;
+
+if(distance1<10)
+{
+  digitalWrite(buzzer,HIGH);
+}
+else
+{
+digitalWrite(buzzer,LOW);
+}
+delay(1000);
+  
+  
+  digitalWrite(trigpin2, LOW);
+  delay(2);
+  digitalWrite(trigpin2, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(trigpin2, LOW);
+  duration2=pulseIn(echopin2,HIGH);
+  distance2=(duration2*0.034)/2;
+
+if(distance2<60)
+{
+  myservo.write(180);
+  delay(3000);
+}
+else
+{
+myservo.write(0);
+  delay(50);
+}
+ 
+}
